@@ -9,6 +9,7 @@ All notable changes to TS4 SimRipper will be documented in this file.
 - Progress feedback during Sim loading ("Loading rig...", "Loading outfit X/Y...", "Building mesh...")
 - Package caching system to avoid reopening same game files multiple times
 - Tooltips on all main action buttons (OBJ, MS3D, DAE, textures, etc.)
+- **Dark Mode** toggle in menu bar with persistent preference
 
 ### Changed
 - Improved UI responsiveness during loading operations with `Application.DoEvents()`
