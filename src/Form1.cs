@@ -1488,7 +1488,14 @@ namespace TS4SimRipper
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(version + Environment.NewLine + "by cmar" + Environment.NewLine + "Available free from ModTheSims.info");
+            MessageBox.Show(version + Environment.NewLine + 
+                Environment.NewLine +
+                "Original by cmarNYC" + Environment.NewLine + 
+                "Available free from ModTheSims.info" + Environment.NewLine +
+                Environment.NewLine +
+                "Feb 2026 Update by victorzambelli" + Environment.NewLine +
+                "github.com/victorzambelli/TS4SimRipper",
+                "About TS4 SimRipper");
         }
 
         private void setupToolStripMenuItem_Click(object sender, EventArgs e)
