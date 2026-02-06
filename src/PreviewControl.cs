@@ -213,7 +213,6 @@ namespace TS4SimRipper
 
             if (morphShape != null && morphMesh.hasUVset(1))
             {
-                string tmp = "";
                 for (int i = 0; i < morphMesh.numberVertices; i++)
                 {
                     float[] pos = morphMesh.getPosition(i);
@@ -772,10 +771,6 @@ namespace TS4SimRipper
                 {
                     foreach (BOND.BoneAdjust adjust in b.adjustments)
                     {
-                        if (adjust.slotHash == 0x77F97B14 || adjust.slotHash == 0x57912F4F)
-                        {
-                            int dummy = 1;
-                        }
                     }
                     float weight = b.weight;
                     if (currentGender == AgeGender.Female && (partGenders[(int)BodyType.Top] == AgeGender.Male || partGenders[(int)BodyType.Body] == AgeGender.Male))

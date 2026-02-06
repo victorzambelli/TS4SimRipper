@@ -501,7 +501,7 @@ namespace TS4SimRipper
             AgeGender gender = 0;
             List<string> smods = new List<string>();
             List<Dictionary<ulong, float>> sculptWeights = new List<Dictionary<ulong, float>>();
-            ulong modHash = 0, sculptHash = 0;
+            ulong sculptHash = 0;
             string modName = "";
             Dictionary<ulong, float> temp = new Dictionary<ulong, float>();
             while (reader.Read())

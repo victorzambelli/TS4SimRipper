@@ -853,7 +853,7 @@
         private System.Windows.Forms.ComboBox Outfits_comboBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Integration.ElementHost elementHost1;
-        private MorphPreview morphPreview3;
+        // private MorphPreview morphPreview3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox Occults_comboBox;
         private System.Windows.Forms.Label label5;
