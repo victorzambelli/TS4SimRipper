@@ -67,12 +67,14 @@ namespace TS4SimRipper
         private TS4SaveGame.PersistableTattooTracker tattooTracker;
         string errorList = "";
         FileStream log;
+        Dictionary<string, Package> packageCache = new Dictionary<string, Package>();
         bool SingleMesh => SeparateMeshes_comboBox.SelectedIndex == 0 && currentOccult != SimOccult.Fairy;
         bool SeparateMeshesByPart => SeparateMeshes_comboBox.SelectedIndex == 1;
         bool SeparateMeshesByShader => SeparateMeshes_comboBox.SelectedIndex == 2 || currentOccult == SimOccult.Fairy;
         public Form1()
         {
             InitializeComponent();
+            try { this.Icon = new Icon(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Resources", "ts4.ico")); } catch { }
             this.menuStrip1.Font = new Font(new FontFamily("Microsoft Sans Serif"), 8f);
             bool debug = false;
             StartMessage starter = new StartMessage();
@@ -216,6 +218,7 @@ namespace TS4SimRipper
             }
             SaveGameFile.Text = GetFilename("Select game save file", SaveFilter, savesFolder);
             if (SaveGameFile.Text.Length == 0) return;
+            ClearPackageCache();
             Package p = (Package)Package.OpenPackage(0, SaveGameFile.Text, false);
             Predicate<IResourceIndexEntry> idel = r => r.ResourceType == 0x0000000D;
             IResourceIndexEntry iries = p.Find(idel);
@@ -480,6 +483,14 @@ namespace TS4SimRipper
             }
         }
 
+        private void UpdateProgress(string status)
+        {
+            Working_label.Text = status;
+            Working_label.Visible = true;
+            Working_label.Refresh();
+            Application.DoEvents();
+        }
+
         private void DisplaySim(TS4SaveGame.SimData sim, SimOccult occultState)
         {
             string executingPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -496,8 +507,7 @@ namespace TS4SimRipper
             LogMe(log, "SimRipper V" + version + " log " + DateTime.Now.ToString());
             LogMe(log, sim.first_name + " " + sim.last_name + " Outfit: " + sim.current_outfit_index.ToString() + " Occult: " + occultState.ToString());
             TroubleshootPackageBasic = (Package)Package.NewPackage(0);
-            Working_label.Visible = true;
-            Working_label.Refresh();
+            UpdateProgress("Loading rig...");
             string info = "";
             //  Package testpack = (Package)Package.NewPackage(1);
 
@@ -572,6 +582,7 @@ namespace TS4SimRipper
             int categoryIndex = 0;
             for (int o = 0; o < outfits.Count; o++)
             {
+                UpdateProgress("Loading outfit " + (o + 1) + "/" + outfits.Count + "...");
                 LogMe(log, "Loading outfit " + o.ToString() + " from savegame");
                 if (outfits[o].parts.ids == null) continue;
                 TS4SaveGame.OutfitData outfit = outfits[o];
@@ -680,6 +691,7 @@ namespace TS4SimRipper
             }
             else
             {
+                UpdateProgress("Loading physique morphs...");
                 LogMe(log, "Loading physique morphs");
                 for (int i = 0; i < physique.Length; i++)
                 {
@@ -1110,6 +1122,7 @@ namespace TS4SimRipper
             this.tattooTracker = currentSim.attributes.tattoo_tracker;
             //  if (debug) errorList += "DisplaySim loaded info listing" + Environment.NewLine;
 
+            UpdateProgress("Building mesh...");
             GetCurrentModel();
             Working_label.Visible = false;
             //// info += "Traits: ";
@@ -1173,16 +1186,26 @@ namespace TS4SimRipper
 
         internal Package OpenPackage(string packagePath, bool readwrite)
         {
+            // Use cache for read-only access to avoid reopening same files
+            if (!readwrite && packageCache.TryGetValue(packagePath, out Package cached))
+                return cached;
+            
             try
             {
                 Package package = (Package)Package.OpenPackage(0, packagePath, readwrite);
+                if (!readwrite && package != null)
+                    packageCache[packagePath] = package;
                 return package;
             }
             catch
             {
-                MessageBox.Show("Unable to read valid package data from " + packagePath);
                 return null;
             }
+        }
+
+        private void ClearPackageCache()
+        {
+            packageCache.Clear();
         }
 
         internal static string WriteGEOM(string title, GEOM geom, string defaultFilename)
