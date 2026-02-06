@@ -93,6 +93,11 @@ namespace TS4SimRipper
             toolTip1.SetToolTip(SaveGlass_button, "Save glass/transparency texture");
             toolTip1.SetToolTip(SaveEmission_button, "Save emission/glow texture");
             
+            // Initialize dark mode from saved settings
+            bool isDarkMode = Properties.Settings.Default.DarkMode;
+            darkModeToolStripMenuItem.Checked = isDarkMode;
+            if (isDarkMode) DarkModeHelper.ApplyTheme(this, true);
+            
             this.menuStrip1.Font = new Font(new FontFamily("Microsoft Sans Serif"), 8f);
             bool debug = false;
             StartMessage starter = new StartMessage();
@@ -1525,6 +1530,14 @@ namespace TS4SimRipper
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void darkModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool darkMode = darkModeToolStripMenuItem.Checked;
+            Properties.Settings.Default.DarkMode = darkMode;
+            Properties.Settings.Default.Save();
+            DarkModeHelper.ApplyTheme(this, darkMode);
         }
 
         private void SaveOBJ_button_Click(object sender, EventArgs e)

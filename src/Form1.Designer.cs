@@ -39,6 +39,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.darkModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Working_label = new System.Windows.Forms.Label();
             this.Outfits_comboBox = new System.Windows.Forms.ComboBox();
@@ -175,6 +176,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
             this.setupToolStripMenuItem,
+            this.darkModeToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -195,6 +197,14 @@
             this.setupToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.setupToolStripMenuItem.Text = "Setup";
             this.setupToolStripMenuItem.Click += new System.EventHandler(this.setupToolStripMenuItem_Click);
+            // 
+            // darkModeToolStripMenuItem
+            // 
+            this.darkModeToolStripMenuItem.Name = "darkModeToolStripMenuItem";
+            this.darkModeToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.darkModeToolStripMenuItem.Text = "Dark Mode";
+            this.darkModeToolStripMenuItem.CheckOnClick = true;
+            this.darkModeToolStripMenuItem.Click += new System.EventHandler(this.darkModeToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -849,6 +859,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem darkModeToolStripMenuItem;
         private System.Windows.Forms.Label Working_label;
         private System.Windows.Forms.ComboBox Outfits_comboBox;
         private System.Windows.Forms.Label label2;
