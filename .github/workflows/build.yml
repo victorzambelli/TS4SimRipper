@@ -1,0 +1,45 @@
+name: Build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    strategy:
+      matrix:
+        framework: ['net4.8', 'net6.0-windows', 'net8.0-windows']
+        include:
+          - framework: net4.8
+            project: src/TS4SimRipper.csproj
+          - framework: net6.0-windows
+            project: src/TS4SimRipper.NET.csproj
+          - framework: net8.0-windows
+            project: src/TS4SimRipper.NET.csproj
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: |
+          6.0.x
+          8.0.x
+    
+    - name: Restore dependencies
+      run: dotnet restore ${{ matrix.project }}
+    
+    - name: Build
+      run: dotnet build ${{ matrix.project }} --no-restore -c Release -f ${{ matrix.framework }}
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: TS4SimRipper-${{ matrix.framework }}
+        path: src/bin/Release/${{ matrix.framework }}/
+        if-no-files-found: warn

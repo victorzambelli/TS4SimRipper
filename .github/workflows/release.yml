@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: |
+          6.0.x
+          8.0.x
+    
+    - name: Get version from tag
+      id: get_version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $env:GITHUB_OUTPUT
+      shell: pwsh
+    
+    - name: Build .NET 6.0
+      run: |
+        dotnet restore src/TS4SimRipper.NET.csproj
+        dotnet publish src/TS4SimRipper.NET.csproj -c Release -f net6.0-windows --self-contained false -o publish/net6.0
+    
+    - name: Build .NET 8.0
+      run: |
+        dotnet publish src/TS4SimRipper.NET.csproj -c Release -f net8.0-windows --self-contained false -o publish/net8.0
+    
+    - name: Create ZIP archives
+      run: |
+        Compress-Archive -Path publish/net6.0/* -DestinationPath TS4SimRipper_${{ steps.get_version.outputs.VERSION }}_net6.0.zip
+        Compress-Archive -Path publish/net8.0/* -DestinationPath TS4SimRipper_${{ steps.get_version.outputs.VERSION }}_net8.0.zip
+      shell: pwsh
+    
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          TS4SimRipper_${{ steps.get_version.outputs.VERSION }}_net6.0.zip
+          TS4SimRipper_${{ steps.get_version.outputs.VERSION }}_net8.0.zip
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

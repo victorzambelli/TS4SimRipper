@@ -1,0 +1,68 @@
+{
+    "version": "2.0.0",
+    "options": {
+        "env": {
+            "SIMRIPPER_VERSION": "3.14.2.10"
+        }
+    },
+    "tasks": [
+        {
+            "label": "buildn",
+            "options": { "statusbar": {"hide": true}},
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/TS4SimRipper.NET.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+                "-f:net6.0-windows",
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build",
+            "options": { "statusbar": {"hide": true}},
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/TS4SimRipper.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "options": { "statusbar": {"hide": false}},
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "src/TS4SimRipper.NET.csproj",
+                "-c:Release",
+                "-f:net6.0-windows"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "wine 🍷",
+            "command": "wine",
+            "type": "process",
+            "options": {
+                "cwd": "${workspaceFolder}/src/bin/Debug/net6.0-windows/win-x64/",
+                "env": {
+                    "WINEDEBUG":"-all"
+                }
+            },
+            "dependsOn":[
+                "buildn"
+            ],
+            "args":[
+                "TS4SimRipper.exe"
+            ],
+        }
+    
+    ]
+}
