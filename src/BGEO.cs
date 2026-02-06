@@ -360,6 +360,8 @@ namespace TS4SimRipper
             }
 
             public override bool Equals(object obj) { return obj is Blend && Equals(obj as Blend); }
+
+            public override int GetHashCode() { return positionDelta.GetHashCode() ^ normalDelta.GetHashCode() ^ offset.GetHashCode(); }
         }
 
         public class Vector : IEquatable<Vector>
@@ -429,6 +431,12 @@ namespace TS4SimRipper
 
             public override bool Equals(object obj) { return obj is Vector && Equals(obj as Vector); }
 
+            public override int GetHashCode()
+            {
+                int hash = 17;
+                foreach (var v in vector) hash = hash * 31 + v.GetHashCode();
+                return hash;
+            }
         }
     }
 }

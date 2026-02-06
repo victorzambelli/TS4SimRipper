@@ -742,6 +742,8 @@ namespace TS4SimRipper
                     this.y.ToString("N6", CultureInfo.InvariantCulture) + " " +
                     this.z.ToString("N6", CultureInfo.InvariantCulture);
             }
+
+            public override int GetHashCode() { return x.GetHashCode() ^ y.GetHashCode() ^ z.GetHashCode(); }
         }
 
         public class UV : IEquatable<UV>
@@ -826,6 +828,8 @@ namespace TS4SimRipper
                 return this.x.ToString("N6", CultureInfo.InvariantCulture) + " " +
                     this.y.ToString("N6", CultureInfo.InvariantCulture);
             }
+
+            public override int GetHashCode() { return x.GetHashCode() ^ y.GetHashCode(); }
         }
 
         public class Normal : IEquatable<Normal>
@@ -892,6 +896,8 @@ namespace TS4SimRipper
                     this.y.ToString("N6", CultureInfo.InvariantCulture) + " " +
                     this.z.ToString("N6", CultureInfo.InvariantCulture);
             }
+
+            public override int GetHashCode() { return x.GetHashCode() ^ y.GetHashCode() ^ z.GetHashCode(); }
         }
 
         public class Face
@@ -1061,6 +1067,8 @@ namespace TS4SimRipper
             {
                 return this.group.CompareTo(other.group);
             }
+
+            public override int GetHashCode() { return group.GetHashCode() ^ uv1.GetHashCode(); }
         }
 
         public class Point : IEquatable<Point>, IComparable<Point>
@@ -1155,6 +1163,8 @@ namespace TS4SimRipper
             {
                 return this.index.CompareTo(other.index);
             }
+
+            public override int GetHashCode() { return index.GetHashCode(); }
         }
 
         public class Vertex : IEquatable<Vertex>
@@ -1208,6 +1218,8 @@ namespace TS4SimRipper
                 if (other == null) return false;
                 return this.position.Equals(other.position) && this.uv.Equals(other.uv) && this.normal.Equals(other.normal);
             }
+
+            public override int GetHashCode() { return position.GetHashCode() ^ uv.GetHashCode() ^ normal.GetHashCode(); }
         }
             
         internal float[] addArrays(float[] v1, float[] v2)

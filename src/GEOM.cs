@@ -4191,7 +4191,7 @@ namespace TS4SimRipper
                 else return 0;
             }
 
-            public int GetHashCode()
+            public override int GetHashCode()
             {
                 return (this.vertID + this.uvx).GetHashCode();
             }
