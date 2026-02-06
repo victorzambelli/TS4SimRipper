@@ -16,6 +16,7 @@ namespace TS4SimRipper
         {
             this.CenterToScreen();
             InitializeComponent();
+            try { this.Icon = new System.Drawing.Icon(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "Resources", "ts4.ico")); } catch { }
         }
     }
 }

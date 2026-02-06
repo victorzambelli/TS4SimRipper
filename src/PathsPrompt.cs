@@ -33,11 +33,13 @@ namespace TS4SimRipper
         public PathsPrompt()
         {
             InitializeComponent();
+            try { this.Icon = new System.Drawing.Icon(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "Resources", "ts4.ico")); } catch { }
         }
 
         public PathsPrompt(string path, string contentpath, string userpath, string savespath)
         {
             InitializeComponent();
+            try { this.Icon = new System.Drawing.Icon(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "Resources", "ts4.ico")); } catch { }
             TS4PathString.Text = path;
             TS4ContentString.Text = contentpath;
             TS4UserPathString.Text = userpath;
