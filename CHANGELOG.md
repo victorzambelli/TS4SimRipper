@@ -2,6 +2,21 @@
 
 All notable changes to TS4 SimRipper will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- Application icon (`ts4.ico`) displayed in window title bar and taskbar for all forms
+- Progress feedback during Sim loading ("Loading rig...", "Loading outfit X/Y...", "Building mesh...")
+- Package caching system to avoid reopening same game files multiple times
+
+### Changed
+- Improved UI responsiveness during loading operations with `Application.DoEvents()`
+
+### Fixed
+- Removed unused variables causing compiler warnings (`modHash`, `tmp`, `dummy`, `morphPreview3`)
+
+---
+
 ## [3.14.2.11] - 2026-02-06
 
 ### Added
