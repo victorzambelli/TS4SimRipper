@@ -1,2 +1,53 @@
-bin
-obj
+# Build output
+bin/
+obj/
+publish/
+release/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# User-specific files
+*.rsuser
+*.userprefs
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+# NuGet
+packages/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+
+# Backup folder
+Backup/
+
+# Log files
+*.log
+SimBuilderLog.txt
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Upgrade logs
+UpgradeLog*.htm
+UpgradeLog*.XML
