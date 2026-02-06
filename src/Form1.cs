@@ -75,6 +75,24 @@ namespace TS4SimRipper
         {
             InitializeComponent();
             try { this.Icon = new Icon(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Resources", "ts4.ico")); } catch { }
+            
+            // Setup tooltips for main buttons
+            toolTip1.SetToolTip(SaveOBJ_button, "Export Sim mesh as Wavefront OBJ format");
+            toolTip1.SetToolTip(SaveMS3D_button, "Export Sim mesh as MilkShape 3D format");
+            toolTip1.SetToolTip(SaveDAE_button, "Export Sim mesh as Collada DAE format (with rig)");
+            toolTip1.SetToolTip(SaveGameFile_button, "Select a Sims 4 save game file to load");
+            toolTip1.SetToolTip(SimInfo_button, "View detailed information about the selected Sim");
+            toolTip1.SetToolTip(SimError_button, "View any errors encountered during loading");
+            toolTip1.SetToolTip(SimTrouble_button, "Save troubleshooting data for bug reports");
+            toolTip1.SetToolTip(SaveSIMO_button, "Save Sim Info/Outfit resource file");
+            toolTip1.SetToolTip(SaveTextures_button, "Save all combined textures");
+            toolTip1.SetToolTip(SaveSkin_button, "Save skin texture only");
+            toolTip1.SetToolTip(SaveMakeup_button, "Save makeup overlay texture");
+            toolTip1.SetToolTip(SaveClothing_button, "Save clothing texture only");
+            toolTip1.SetToolTip(SaveNormals_button, "Save normal map texture");
+            toolTip1.SetToolTip(SaveGlass_button, "Save glass/transparency texture");
+            toolTip1.SetToolTip(SaveEmission_button, "Save emission/glow texture");
+            
             this.menuStrip1.Font = new Font(new FontFamily("Microsoft Sans Serif"), 8f);
             bool debug = false;
             StartMessage starter = new StartMessage();
